@@ -1,24 +1,38 @@
 
 
 // let numberOfFaces = prompt('How many faces to start with?');
-let numberOfFaces = 0;
+//let numberOfFaces = 0;
 const theLeftSide = document.querySelector('#leftSide');
 const theRightSide = document.querySelector('#rightSide');
 let counter = 0;
+let counterMessage = document.getElementById('counter-message');
+let gameOverMessage = document.querySelector('#game-over');
+let difficultyValue = document.querySelector('#difficulty');
+let increment = '';
+let numberOfFaces;
+let highScore = 0;
+let highScoreMessage = document.querySelector('#high-score-message');
 
 
 function getNumberOfFaces() {
-    let userInput = prompt('how many faces?');
-    numberOfFaces = Number.parseInt(userInput, 10);
-    if (numberOfFaces === null) {
-        alert('game has been canceled');
-    } else if (numberOfFaces === NaN) {
-        numberOfFaces = prompt('please enter a number');
-    }
+    let numberSelected = document.querySelector('#face-number').value;
+    numberOfFaces = Number.parseInt(numberSelected, 10);
+    gameOverMessage.innerHTML = '';
+    // let userInput = prompt('how many faces?');
+    // numberOfFaces = Number.parseInt(userInput, 10);
+    // if (userInput === null) {
+    //     alert('game has been canceled');
+    //     return;
+    // } else if (userInput === NaN) {
+    //     numberOfFaces = prompt('please enter a number');
+    // }
+    increment = difficultyValue.value;
+    console.log(increment);
     generateFaces();
 }
 
 function generateFaces() {
+
 
     for (let i = 0; i < numberOfFaces; i++) {
         let face = document.createElement('img');
@@ -34,7 +48,7 @@ function generateFaces() {
     leftSideImages.removeChild(leftSideImages.lastChild);
 
     theRightSide.appendChild(leftSideImages);
-    console.log(theRightSide);
+    //console.log(theRightSide);
 
     theLeftSide.lastChild.addEventListener('click', nextLevel);
 
@@ -45,9 +59,18 @@ function generateFaces() {
 
 function nextLevel() {
     event.stopPropagation();
-    numberOfFaces += 3;
+
+    if(increment === 'easy'){
+        numberOfFaces +=2;
+    } else if(increment === 'normal'){
+        numberOfFaces +=3;
+    } else if(increment === 'hard') {
+        numberOfFaces += 4;
+    }
+
+    //numberOfFaces += 3;
     counter += 1;
-    console.log(counter);
+    //console.log(counter);
 
     while (theLeftSide.firstChild) {
         theLeftSide.removeChild(theLeftSide.firstChild);
@@ -59,11 +82,14 @@ function nextLevel() {
 
     generateFaces();
 
-
+    counterMessage.innerHTML = `You have guessed right ${counter} times!`;
+    
 }
 
 function gameOver() {
-    alert('Game Over! You did this ' + counter + ' times');
+    //alert('Game Over! You did this ' + counter + ' times');
+    gameOverMessage.innerHTML = 'GAME OVER';
+
     document.body.removeEventListener('click', gameOver);
     theLeftSide.lastChild.removeEventListener('click', nextLevel);
 
@@ -75,7 +101,16 @@ function gameOver() {
         theRightSide.removeChild(theRightSide.firstChild);
     }
 
-    numberOfFaces = 3;
+    if(counter > highScore){
+        highScore = counter;
+        highScoreMessage.innerHTML = `New high score of ${highScore}`;
+    } else {
+        highScoreMessage.innerHTML = `High score is ${highScore}`;
+    }
+
+    
+
+
     counter = 0;
 
 }

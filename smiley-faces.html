@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matching Game</title>
+    <link rel="stylesheet" href="/styles/style.css">
 
-<style>
-    img{
-        position: absolute;
 
-    }
-
-    div{
-        position: absolute;
-        width: 500px;
-        height: 500px;
-    }
-
-    #rightSide {
-        left: 500px;
-        border-left: 1px solid;
-    }
-
-    
-
-</style>
 
 </head>
+
 <body>
     <h1>Matching Game</h1>
-    <p>Click on the extra smiling face</p>
-
-    <button onclick="getNumberOfFaces()">Start Here</button>
+    <p id="game-over"></p>
 
     <div id="leftSide"></div>
     <div id="rightSide"></div>
+    <div id="game-console">
+        <h3>Game Controls</h3>
+        <p>Click on the extra smiling face</p>
+        <p>Select number of faces and difficulty then press START.</p>
 
-    
-<script src="/js/smiley-faces.js"></script>
+        <select name="face-number" id="face-number">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+        </select>
+
+
+        <select name="difficulty" id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="normal">Normal</option>
+            <option value="hard">Hard</option>
+        </select>
+        <button onclick="getNumberOfFaces()">Start</button>
+        <p id="counter-message"></p>
+        <p>High Score</p>
+        <p id="high-score-message"></p>
+    </div>
+
+
+    <script src="/js/smiley-faces.js"></script>
 </body>
+
 </html>
